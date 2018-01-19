@@ -11,4 +11,5 @@ spring:
 demo:
   security:
     browser:
-      loginPage: /login.html
+      loginPage: /login.html  #指定自定义登陆页面
+      loginResponseType: REDIRECT  #指定登陆后的相应方式，默认为JSON
