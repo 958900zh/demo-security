@@ -10,6 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.social.security.SpringSocialConfigurer;
 
 /**
  * Created by 栋 on 2018/1/18.
@@ -26,6 +27,9 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private AuthenticationFailureHandler myAuthenticationFailureHandler;
 
+    @Autowired
+    private SpringSocialConfigurer mySpringSocialConfigurer;
+
     @Bean
     public PasswordEncoder passwordEncoder(){
 
@@ -34,6 +38,7 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
         http
                 .formLogin()   //使用表单验证 UsernamePasswordAuthenticationFilter()
                 .loginPage("/authentication/require")  //指定验证的页面，如果不指定，默认使用spring-security的login.html
