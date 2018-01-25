@@ -47,7 +47,10 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureHandler(myAuthenticationFailureHandler) //验证失败处理
                 .and()
                 .authorizeRequests() //所有请求都需要被验证
-                .antMatchers("/authentication/require", properties.getBrowser().getLoginPage()).permitAll() //匹配到的请求不需要被验证
+                .antMatchers(
+                        "/authentication/require",
+                        properties.getBrowser().getLoginPage(),
+                        "/code/img").permitAll() //匹配到的请求不需要被验证
                 .anyRequest()
                 .authenticated()
                 .and()
