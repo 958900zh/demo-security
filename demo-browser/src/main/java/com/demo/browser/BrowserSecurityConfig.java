@@ -46,7 +46,7 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
                 .addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)
-                .formLogin()    //使用表单验证 UsernamePasswordAuthenticationFilter()
+                .formLogin()   //使用表单验证 UsernamePasswordAuthenticationFilter()
                 .loginPage("/authentication/require")  //指定验证的页面，如果不指定，默认使用spring-security的login.html
                 .loginProcessingUrl("/authentication/login") //指定处理登陆的url，如果不指定，默认是 /login post请求
                 .successHandler(myAuthenticationSuccessHandler) //验证成功处理
