@@ -17,14 +17,15 @@ import java.io.IOException;
 @RestController
 public class ValidateCodeController {
 
-    private static final String SESSION_KEY = "SESSION_KEY_IMAGE_CODE";
+    public static final String SESSION_KEY = "SESSION_KEY_IMAGE_CODE";
 
     private SessionStrategy sessionStrategy = new HttpSessionSessionStrategy();
 
     @GetMapping("/code/img")
     public void createCode(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        ImageCode imageCode = createImageCode(request);
+        ImageCode imageCode = new ImageCode();
+        imageCode.setCode("5678");
         sessionStrategy.setAttribute(new ServletWebRequest(request), SESSION_KEY, imageCode);
         ImageIO.write(imageCode.getImage(), "JPEG", response.getOutputStream());
     }
