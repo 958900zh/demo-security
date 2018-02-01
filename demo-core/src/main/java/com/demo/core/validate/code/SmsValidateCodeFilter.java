@@ -10,12 +10,12 @@ import org.springframework.util.Assert;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-class SmsValidateCodeFilterextends extends AbstractAuthenticationProcessingFilter {
+class SmsValidateCodeFilter extends AbstractAuthenticationProcessingFilter {
     public static final String SMS_VALIDATE_CODE_PHONE = "phone";
     private String phoneParameter = "phone";
     private boolean postOnly = true;
 
-    public SmsValidateCodeFilterextends() {
+    public SmsValidateCodeFilter() {
         super(new AntPathRequestMatcher("/authentication/sms", "POST"));
     }
 

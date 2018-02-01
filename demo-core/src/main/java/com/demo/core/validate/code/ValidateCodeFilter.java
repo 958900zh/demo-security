@@ -38,15 +38,6 @@ public class ValidateCodeFilter extends OncePerRequestFilter {
     }
 
     private void validate(ServletWebRequest request) {
-        ImageCode codeInSession = (ImageCode) sessionStrategy.getAttribute(request, ValidateCodeController.SESSION_KEY);
-
-        String codeInRequest = request.getRequest().getParameter("imageCode");
-
-        if (!StringUtils.equals(codeInSession.getCode(), codeInRequest)) {
-            throw new ValidationCodeException("验证码不匹配！");
-        }
-
-        sessionStrategy.removeAttribute(request, ValidateCodeController.SESSION_KEY);
     }
 
     public void setAuthenticationFailureHandler(AuthenticationFailureHandler authenticationFailureHandler) {
