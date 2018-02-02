@@ -11,14 +11,14 @@ import org.springframework.web.context.request.ServletWebRequest;
  * Created by zxdong on 2018/2/1.
  */
 @Component
-public class SmsValidateCodProcessor extends AbstractValidateCodeProcessor<ValidateCode> {
+public class SmsValidateCodeProcessor extends AbstractValidateCodeProcessor<ValidateCode> {
 
     @Autowired
     private SmsValidateCodeSender smsValidateCodeSender;
 
     @Override
     protected void send(ServletWebRequest request, ValidateCode code) throws Exception {
-        String phoneNumber = ServletRequestUtils.getRequiredStringParameter(request.getRequest(), "");
+        String phoneNumber = ServletRequestUtils.getRequiredStringParameter(request.getRequest(), "phoneNumber");
         smsValidateCodeSender.send(phoneNumber, code.getCode());
     }
 }

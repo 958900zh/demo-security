@@ -1,9 +1,9 @@
 package com.demo.core.validate.code.Impl;
 
 import com.demo.core.validate.code.ValidateCode;
+import com.demo.core.validate.code.ValidateCodeException;
 import com.demo.core.validate.code.ValidateCodeGenerator;
 import com.demo.core.validate.code.ValidateCodeProcessor;
-import com.demo.core.validate.code.ValidationCodeException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.web.HttpSessionSessionStrategy;
 import org.springframework.social.connect.web.SessionStrategy;
@@ -22,19 +22,22 @@ abstract public class AbstractValidateCodeProcessor<Code extends ValidateCode> i
     private Map<String, ValidateCodeGenerator> validateCodeGeneratorMap;
 
     @Override
-    public void create(ServletWebRequest request) throws Exception {
-        Code code = generator();
+    public void create(ServletWebRequest request, String type) {
+        Code code = generator(type);
         save(request, code);
-        send(request, code);
+        try {
+            send(request, code);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @SuppressWarnings("unchecked")
-    private Code generator() {
-        String type = "";
+    private Code generator(String type) {
         String generatorName = type + ValidateCodeGenerator.class.getSimpleName();
         ValidateCodeGenerator generator = validateCodeGeneratorMap.get(generatorName);
         if (generator == null) {
-            throw new ValidationCodeException("验证码生成器" + generatorName + "不存在");
+            throw new ValidateCodeException("验证码生成器" + generatorName + "不存在");
         }
         return (Code) generator.generator();
     }

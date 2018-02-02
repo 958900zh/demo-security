@@ -9,7 +9,7 @@ public interface ValidateCodeProcessor {
 
     public static final String SESSION_KEY_PRIFIX = "SECUTIRY_VALIDATE_CODE_";
 
-    void create(ServletWebRequest request) throws Exception;
+    void create(ServletWebRequest request, String type);
 
     void validate(ServletWebRequest request);
 }

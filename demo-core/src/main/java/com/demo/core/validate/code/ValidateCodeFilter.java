@@ -28,7 +28,7 @@ public class ValidateCodeFilter extends OncePerRequestFilter {
                 && StringUtils.equalsIgnoreCase("post", request.getMethod())) {
             try {
                 validate(new ServletWebRequest(request));
-            } catch (ValidationCodeException e) {
+            } catch (ValidateCodeException e) {
                 authenticationFailureHandler.onAuthenticationFailure(request, response, e);
                 return;
             }

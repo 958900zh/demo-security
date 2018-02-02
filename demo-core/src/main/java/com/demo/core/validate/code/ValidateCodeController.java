@@ -21,7 +21,7 @@ public class ValidateCodeController {
 
     @GetMapping("/code/{type}")
     public void createCode(HttpServletRequest request, HttpServletResponse response, @PathVariable("type") String type) throws IOException {
-        processorHolder.findValidateProcessor(type).create(new ServletWebRequest(request, response));
+        processorHolder.findValidateProcessor(type).create(new ServletWebRequest(request, response), type);
     }
 
 }

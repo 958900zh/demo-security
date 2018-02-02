@@ -20,6 +20,6 @@ public class ValidateCodeProcessorHolder {
         if (processor == null) {
             throw new ValidateCodeException("验证码处理器" + processorName + "不存在");
         }
-        return validateCodeProcessorMap.get(processorName);
+        return processor;
     }
 }
