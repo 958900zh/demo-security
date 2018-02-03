@@ -1,5 +1,6 @@
 package com.demo.core.social;
 
+import com.demo.core.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,11 +18,14 @@ import javax.sql.DataSource;
  * Created by zxdong on 2018/1/20.
  */
 @Configuration
-@EnableSocial
+@EnableSocial//启动SpringSocial相应的特性
 public class SocialConfig extends SocialConfigurerAdapter {
 
     @Autowired
     private DataSource dataSource;
+
+    @Autowired
+    private SecurityProperties properties;
 
     @Override
     public UsersConnectionRepository getUsersConnectionRepository(ConnectionFactoryLocator connectionFactoryLocator) {
@@ -30,6 +34,6 @@ public class SocialConfig extends SocialConfigurerAdapter {
 
     @Bean
     public SpringSocialConfigurer mySpringSocialConfigurer() {
-        return new SpringSocialConfigurer();
+        return new MySpringSocialConfig(properties.getSocial().getProcessUrl());
     }
 }

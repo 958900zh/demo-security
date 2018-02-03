@@ -16,6 +16,7 @@ public class QQAdapter implements ApiAdapter<QQ> {
         return true;
     }
 
+    //通过ConnectionFactory创建一个connection对象需要的参数
     @Override
     public void setConnectionValues(QQ qq, ConnectionValues connectionValues) {
         QQUserInfo userInfo = qq.getUserInfo();

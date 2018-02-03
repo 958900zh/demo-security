@@ -5,13 +5,23 @@ package com.demo.core.properties;
  */
 public class SocialProperties {
 
-    private QQProperties qqProperties;
+    private String processUrl = "/auth";
 
-    public QQProperties getQqProperties() {
-        return qqProperties;
+    private QQProperties qq = new QQProperties();
+
+    public QQProperties getQq() {
+        return qq;
     }
 
-    public void setQqProperties(QQProperties qqProperties) {
-        this.qqProperties = qqProperties;
+    public void setQq(QQProperties qq) {
+        this.qq = qq;
+    }
+
+    public String getProcessUrl() {
+        return processUrl;
+    }
+
+    public void setProcessUrl(String processUrl) {
+        this.processUrl = processUrl;
     }
 }

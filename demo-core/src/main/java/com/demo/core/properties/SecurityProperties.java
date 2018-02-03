@@ -10,7 +10,7 @@ public class SecurityProperties {
 
     private BrowserProperties browser = new BrowserProperties();
 
-    private SocialProperties social;
+    private SocialProperties social = new SocialProperties();
 
     private ValidateCodeProperties code = new ValidateCodeProperties();
 
