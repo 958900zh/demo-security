@@ -11,5 +11,5 @@ public interface ValidateCodeProcessor {
 
     void create(ServletWebRequest request, String type);
 
-    void validate(ServletWebRequest request);
+    void validate(ServletWebRequest request, String type);
 }

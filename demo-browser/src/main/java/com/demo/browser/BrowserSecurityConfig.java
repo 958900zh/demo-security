@@ -1,6 +1,7 @@
 package com.demo.browser;
 
 import com.demo.core.properties.SecurityProperties;
+import com.demo.core.validate.SmsAuthenticationConfig;
 import com.demo.core.validate.code.ValidateCodeFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -32,6 +33,12 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private SpringSocialConfigurer mySpringSocialConfigurer;
 
+    @Autowired
+    private ValidateCodeFilter validateCodeFilter;
+
+    @Autowired
+    private SmsAuthenticationConfig smsAuthenticationConfig;
+
     @Bean
     public PasswordEncoder passwordEncoder(){
 
@@ -41,14 +48,18 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        ValidateCodeFilter validateCodeFilter = new ValidateCodeFilter();
-        validateCodeFilter.setAuthenticationFailureHandler(myAuthenticationFailureHandler);
+//        ValidateCodeFilter validateCodeFilter = new ValidateCodeFilter();
+//        validateCodeFilter.setAuthenticationFailureHandler(myAuthenticationFailureHandler);
 
         http
+                .apply(smsAuthenticationConfig)
+                .and()
+                .apply(mySpringSocialConfigurer)
+                .and()
                 .addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)
                 .formLogin()   //使用表单验证 UsernamePasswordAuthenticationFilter()
                 .loginPage("/authentication/require")  //指定验证的页面，如果不指定，默认使用spring-security的login.html
-                .loginProcessingUrl("/authentication/login") //指定处理登陆的url，如果不指定，默认是 /login post请求
+                .loginProcessingUrl("/authentication/form") //指定处理登陆的url，如果不指定，默认是 /login post请求
                 .successHandler(myAuthenticationSuccessHandler) //验证成功处理
                 .failureHandler(myAuthenticationFailureHandler) //验证失败处理
                 .and()

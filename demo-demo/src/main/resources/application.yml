@@ -2,14 +2,29 @@ spring:
   datasource:
     username: root
     password: 123456
-    url: jdbc.mysql://127.0.0.1:3306/project?useUnicode=true&characterEncoding=utf8
+    url: jdbc.mysql://127.0.0.1:3306/security?useUnicode=true&characterEncoding=utf8
     driver-class-name: com.mysql.jdbc.Driver
 
   session:
     store-type: none
-
 #demo:
 #  security:
 #    browser:
 #      loginPage: /login.html  #指定自定义登陆页面
 #      loginResponseType: REDIRECT  #指定登陆后的相应方式，默认为JSON
+
+#demo:
+#  security:
+#    code:
+#      image:  #设置图片验证码属性
+#        length: 6
+#        width: 100
+demo:
+  security:
+    social:
+      qq:
+        app_id: 101386962
+        app_secret: 2a0f820407df400b84a854d054be8b6a
+      processUrl: /login
+server:
+  port: 80

@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * Created by zxdong on 2018/2/1.
  */
-@Component
+@Component("validateCodeProcessorHolder")
 public class ValidateCodeProcessorHolder {
 
     @Autowired
