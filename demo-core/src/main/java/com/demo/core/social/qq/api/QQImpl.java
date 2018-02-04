@@ -11,7 +11,7 @@ import org.springframework.social.oauth2.TokenStrategy;
 public class QQImpl extends AbstractOAuth2ApiBinding implements QQ {
 
     private static final String URL_GET_OPENID = "https://graph.qq.com/oauth2.0/me?access_token=%s";
-    private static final String URL_GET_USERINFO = "https://graph.qq.com/user/get_user_info?oauth_consumer_key=%s&openid=$s";
+    private static final String URL_GET_USERINFO = "https://graph.qq.com/user/get_user_info?oauth_consumer_key=%s&openid=%s";
     private ObjectMapper objectMapper = new ObjectMapper();
     private String appId;//第三方应用的标识
 
@@ -24,8 +24,8 @@ public class QQImpl extends AbstractOAuth2ApiBinding implements QQ {
         String url = String.format(URL_GET_OPENID, accessToken);
         String result = getRestTemplate().getForObject(url, String.class);
         System.out.println(result);
-        this.openId = StringUtils.substringBetween(result, "\"openid\":", "}");
-
+        this.openId = StringUtils.substringBetween(result, "\"openid\":\"", "\"}");
+        System.out.println(openId);
     }
 
     @Override
@@ -36,7 +36,9 @@ public class QQImpl extends AbstractOAuth2ApiBinding implements QQ {
         System.out.println(result);
 
         try {
-            return objectMapper.readValue(result, QQUserInfo.class);
+            QQUserInfo userInfo = objectMapper.readValue(result, QQUserInfo.class);
+            userInfo.setOpenId(openId);
+            return userInfo;
         } catch (Exception e) {
             throw new RuntimeException("获取用户信息失败", e);
         }

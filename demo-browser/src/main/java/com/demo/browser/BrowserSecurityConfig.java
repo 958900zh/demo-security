@@ -67,7 +67,9 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(
                         "/authentication/require",
                         properties.getBrowser().getLoginPage(),
-                        "/code/*").permitAll() //匹配到的请求不需要被验证
+                        "/code/*",
+                        properties.getBrowser().getSignupUrl(),
+                        "/register").permitAll() //匹配到的请求不需要被验证
                 .anyRequest()
                 .authenticated()
                 .and()
